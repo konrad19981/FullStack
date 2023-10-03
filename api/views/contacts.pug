@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        title Lista zadań
+        link(rel="stylesheet", href="/contactsview.css")
+
+    body
+        h1 Lista zadań
+
+        a(href='/start.html')
+            button.btn.btn-primary(type='button') Dodaj nowe zadanie
+
+        table.table.table-bordered
+            thead
+                tr
+                    th Treść
+                    th Status
+                    th Akcje
+            tbody
+                each zadanie in zadania
+                    tr
+                        td= zadanie.content
+                        td= zadanie.done ? 'Done' : 'In Progress'
+                        td
+                            form(action=`/update/${zadanie.id}`, method='post')
+                                input(type='hidden', name='id', value=zadanie.id)
+                                input(type='text', name='newContent', value=zadanie.content)
+                                select(name='newDone')
+                                    option(value='true', selected=zadanie.done === true) Done
+                                    option(value='false', selected=zadanie.done === false) In Progress
+                                button.btn.btn-success(type='submit') Edytuj
+                            form(action=`/tasks/${zadanie.id}`, method='post')
+                                input(type='hidden', name='_method', value='DELETE')
+                                button.btn.btn-danger(type='submit') Usuń

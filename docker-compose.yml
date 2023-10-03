@@ -1,0 +1,24 @@
+version: "3"
+services:
+  client:
+    container_name: client
+    restart: always
+    build: ./client
+    ports:
+      - "3000:3000"
+    links:
+      - app
+  app:
+    container_name: app
+    restart: always
+    build: ./api
+    ports:
+      - "8080:8080"
+    environment:
+      - apiKey=AIzaSyCOWevKr5RDuyuG586SO3usm5jiAT7fE0g
+      - authDomain=tasks-5be7b.firebaseapp.com
+      - projectId=tasks-5be7b
+      - storageBucket=tasks-5be7b.appspot.com
+      - messagingSenderId=695189905250
+      - appId=1:695189905250:web:6628af18460128a49b963b
+
